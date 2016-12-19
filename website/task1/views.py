@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.contrib.auth import (
     authenticate,
     get_user_model,
@@ -17,7 +18,7 @@ def login_view(request):
         password = form.cleaned_data.get("password")
         user = authenticate(username=username, password=password)
         login(request, user)
-        redirect("music:index")
+        return HttpResponseRedirect('/')
         print(request.user.is_authenticated())
 
     return render(request, 'form1.html', {'form': form, 'title': title})
@@ -34,7 +35,7 @@ def register_view(request):
 
         new_user = authenticate(username=user.username,password=password)
         login(request, new_user)
-        redirect("/")
+        return HttpResponseRedirect('/')
 
     context = {
         'form':form,
